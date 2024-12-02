@@ -13,24 +13,24 @@ import lombok.val;
 public class Day1 {
     public static void main(String[] args) throws IOException {
         val day1 = new Day1();
-        val numbers = day1.readNumbersFromFile();
+        val numbersPair = day1.readNumbersFromFile();
 
-        System.out.println("Part 1: " + day1.findSum(numbers.leftList, numbers.rightList));
-        System.out.println("Part 2: " + day1.findSimilarityScore(numbers.leftList, numbers.rightList));
+        System.out.println("Part 1: " + day1.findSum(numbersPair));
+        System.out.println("Part 2: " + day1.findSimilarityScore(numbersPair));
     }
 
-    public Integer findSum(List<Integer> leftList, List<Integer> rightList) {
-        return IntStream.range(0, Math.min(leftList.size(), rightList.size()))
-                .map(i -> Math.abs(leftList.get(i) - rightList.get(i)))
+    public Integer findSum(NumberPair numbers) {
+        return IntStream.range(0, Math.min(numbers.leftList.size(), numbers.rightList.size()))
+                .map(i -> Math.abs(numbers.leftList.get(i) - numbers.rightList.get(i)))
                 .sum();
     }
 
-    public Integer findSimilarityScore(List<Integer> leftList, List<Integer> rightList) {
+    public Integer findSimilarityScore(NumberPair numbers) {
         val sum = new AtomicInteger();
 
-        leftList.forEach(left -> {
+        numbers.leftList.forEach(left -> {
             sum.addAndGet(
-                    left * (int) rightList.stream()
+                    left * (int) numbers.rightList.stream()
                             .filter(r -> r.equals(left))
                             .count());
         });
@@ -57,7 +57,7 @@ public class Day1 {
     }
 
 
-    static class NumberPair {
+    public static class NumberPair {
         public List<Integer> leftList;
         public List<Integer> rightList;
 
