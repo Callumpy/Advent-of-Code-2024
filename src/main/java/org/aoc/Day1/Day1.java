@@ -13,7 +13,7 @@ import lombok.val;
 public class Day1 {
     public static void main(String[] args) throws IOException {
         val day1 = new Day1();
-        val numbersPair = day1.readNumbersFromFile();
+        val numbersPair = new NumberPair();
 
         System.out.println("Part 1: " + day1.findSum(numbersPair));
         System.out.println("Part 2: " + day1.findSimilarityScore(numbersPair));
@@ -38,32 +38,25 @@ public class Day1 {
         return sum.get();
     }
 
-    private NumberPair readNumbersFromFile() throws IOException {
-        val reader = new BufferedReader(new FileReader("src/main/resources/day1.txt"));
-        var line = "";
-
-        val left = new ArrayList<Integer>();
-        val right = new ArrayList<Integer>();
-
-        while ((line = reader.readLine()) != null) {
-            val parts = line.split("\\s+");
-            left.add(Integer.parseInt(parts[0]));
-            right.add(Integer.parseInt(parts[1]));
-        }
-
-        return new NumberPair(
-                left.stream().sorted().toList(),
-                right.stream().sorted().toList());
-    }
-
-
     public static class NumberPair {
         public List<Integer> leftList;
         public List<Integer> rightList;
 
-        public NumberPair(List<Integer> leftList, List<Integer> rightList) {
-            this.leftList = leftList;
-            this.rightList = rightList;
+        public NumberPair() throws IOException {
+            val reader = new BufferedReader(new FileReader("src/main/resources/day1.txt"));
+            var line = "";
+
+            val left = new ArrayList<Integer>();
+            val right = new ArrayList<Integer>();
+
+            while ((line = reader.readLine()) != null) {
+                val parts = line.split("\\s+");
+                left.add(Integer.parseInt(parts[0]));
+                right.add(Integer.parseInt(parts[1]));
+            }
+
+            this.leftList = left.stream().sorted().toList();
+            this.rightList = right.stream().sorted().toList();
         }
     }
 }
