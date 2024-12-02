@@ -19,13 +19,13 @@ public class Day1 {
         System.out.println("Part 2: " + day1.findSimilarityScore(numbersPair));
     }
 
-    public Integer findSum(NumberPair numbers) {
+    private Integer findSum(NumberPair numbers) {
         return IntStream.range(0, Math.min(numbers.leftList.size(), numbers.rightList.size()))
                 .map(i -> Math.abs(numbers.leftList.get(i) - numbers.rightList.get(i)))
                 .sum();
     }
 
-    public Integer findSimilarityScore(NumberPair numbers) {
+    private Integer findSimilarityScore(NumberPair numbers) {
         val sum = new AtomicInteger();
 
         numbers.leftList.forEach(left -> {
@@ -38,7 +38,7 @@ public class Day1 {
         return sum.get();
     }
 
-    public static class NumberPair {
+    private static class NumberPair {
         public List<Integer> leftList;
         public List<Integer> rightList;
 
